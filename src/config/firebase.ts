@@ -3,19 +3,20 @@ import { initializeAuth, Auth } from 'firebase/auth';
 // @ts-ignore - getReactNativePersistence is available at runtime in RN environments
 import { getReactNativePersistence } from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore';
+import { getStorage } from 'firebase/storage';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Platform } from 'react-native';
 
-// ⚠️ REPLACE these values with your own Firebase project config
-// Get them from: Firebase Console → Project Settings → Your App → Config
+// ⚠️ Values are now pulled from .env file for security
+// Ensure your .env has EXPO_PUBLIC_ prefix
 const firebaseConfig = {
-  apiKey: "AIzaSyB0T1iwu3sCe8EAEf5g5JawzBsryme6eJ4",
-  authDomain: "otli-delivery-app-enhanced.firebaseapp.com",
-  projectId: "otli-delivery-app-enhanced",
-  storageBucket: "otli-delivery-app-enhanced.firebasestorage.app",
-  messagingSenderId: "775181364931",
-  appId: "1:775181364931:web:3450d576aee8d0d389bc76",
-  measurementId: "G-5GCTTBR2KQ"
+  apiKey: process.env.EXPO_PUBLIC_FIREBASE_API_KEY,
+  authDomain: process.env.EXPO_PUBLIC_FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.EXPO_PUBLIC_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.EXPO_PUBLIC_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.EXPO_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.EXPO_PUBLIC_FIREBASE_APP_ID,
+  measurementId: process.env.EXPO_PUBLIC_FIREBASE_MEASUREMENT_ID,
 };
 
 const app = initializeApp(firebaseConfig);
@@ -32,5 +33,6 @@ if (Platform.OS === 'web') {
 
 export { auth };
 export const db = getFirestore(app);
+export const storage = getStorage(app);
 
 export default app;

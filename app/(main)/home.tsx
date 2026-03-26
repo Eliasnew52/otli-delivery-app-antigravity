@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { useRouter } from 'expo-router';
 import { useAuth } from '../../src/contexts/AuthContext';
 import Button from '../../src/components/Button';
 import Logo from '../../src/components/Logo';
@@ -9,6 +10,7 @@ import { ROLE_LABELS } from '../../src/utils/roles';
 
 export default function HomeScreen() {
   const { user, userProfile, logout } = useAuth();
+  const router = useRouter();
 
   const roleBadgeColor = {
     admin: colors.accent,
@@ -70,6 +72,16 @@ export default function HomeScreen() {
             <View style={styles.progressFill} />
           </View>
         </View>
+
+        {role === 'admin' && (
+          <View style={{ marginTop: spacing.xl }}>
+            <Button
+              title="ADMIN DASHBOARD"
+              onPress={() => router.push('/(main)/admin-dashboard')}
+              variant="primary"
+            />
+          </View>
+        )}
       </View>
 
       <View style={styles.footer}>
